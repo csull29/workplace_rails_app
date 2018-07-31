@@ -9,8 +9,12 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
+  config.action_mailer.delivery_method = :test
+  config.action_mailer.default_url_options = { :host => 'https://eu-west-1.console.aws.amazon.com/cloud9/ide/0c4d5932f6bb4a6e9399d0708dcd600e#'}
+  
   # Show full error reports.
   config.consider_all_requests_local = true
+  
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
