@@ -11,6 +11,7 @@ gem 'rails', '~> 5.2.0'
 gem 'puma', '~> 3.11'
 
 gem 'devise'
+#gem 'devise-i18n'
 gem 'milia', github: 'jekuno/milia', branch: 'issue#76'
 
 # Use SCSS for stylesheets
@@ -28,6 +29,12 @@ gem 'rack'
 gem 'coffee-rails', '~> 4.2'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
+
+gem 'twitter-bootstrap-rails'
+gem 'devise-bootstrap-views'
+gem 'therubyracer'
+gem 'bootstrap-datepicker-rails'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -56,7 +63,6 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 group :test do
