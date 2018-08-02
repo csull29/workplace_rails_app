@@ -13,6 +13,7 @@ gem 'puma', '~> 3.11'
 gem 'devise'
 #gem 'devise-i18n'
 gem 'milia', github: 'jekuno/milia', branch: 'issue#76'
+gem 'aws-sdk'
 
 # Use SCSS for stylesheets
 gem 'bootstrap-sass', '~> 3.3.7'

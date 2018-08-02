@@ -14,6 +14,10 @@
   <dt><strong><%= model_class.human_attribute_name(:tenant_id) %>:</strong></dt>
   <dd><%= @project.tenant_id %></dd>
 </dl>
+<h3>Aretfacts</h3>
+<%= render 'artefacts/list', artefacts: @project/artefacts %>
+<br />
+<br />
 
 <%= link_to '< Back to Organization Home', root_path, :class => 'btn btn-default'  %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),

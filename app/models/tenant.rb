@@ -49,5 +49,5 @@ class Tenant < ApplicationRecord
       #
     end
 
-   
+ end
 end
