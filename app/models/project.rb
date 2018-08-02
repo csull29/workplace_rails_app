@@ -1,6 +1,7 @@
 class Project < ApplicationRecord
   belongs_to :tenant
   validates_uniqueness_of :title
+  has_many :artefacts, dependent: :destoy
   validate :limited_plan_can_only_have_one_project
   
   def limited_plan_can_only_have_one_project
