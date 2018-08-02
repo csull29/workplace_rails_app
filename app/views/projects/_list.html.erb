@@ -19,10 +19,10 @@
         <td><%= project.details %></td>
         <td><%= project.expected_completion_date %></td>
         <td>
-          <%= link_to t('.show', :default => t("helpers.links.show")),
-                      tenant_project_path(project, project, tenant_id: @tenant.id), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_tenant_project_path(project, tenant_id: @tenant.id), :class => 'btn btn-default btn-xs' %>
+          <%= link_to 'Edit Users', users_tenant_project_path(project, tenant_id: @tenant.id),
+                      :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       tenant_project_path(project, tenant_id: @tenant.id),
                       :method => :delete,
@@ -34,7 +34,7 @@
   </tbody>
 </table>
 <% else %>
-<p class ="lead">You do not currently have any projects saved</p>
+<p class ="lead">You do not have any projects currently saved</p>
 <% end %>
 
 <% if (@tenant.can_create_projects?) %>
