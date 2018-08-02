@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -9,7 +7,7 @@ Devise.setup do |config|
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
   # config.secret_key = '850f3dc8b2164d67a7ccc8de6ac138d8385a6e932a6b30b5a32aa8ffce88e7fbc72af01378d4a9380d670d6849df46db3360151cb93d62d3d9d9648884040b6d'
-  config.secret_key = 'c6314e2fc7b0ebb20ff27c212423598de2e3d152fc09c82c2ee877f3d1227896ad852c55f87bcf061acad44331c49fad3f950d8cb5f84acc52da133baf06131e'
+  #config.secret_key = 'c6314e2fc7b0ebb20ff27c212423598de2e3d152fc09c82c2ee877f3d1227896ad852c55f87bcf061acad44331c49fad3f950d8cb5f84acc52da133baf06131e'
  
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -22,7 +20,7 @@ Devise.setup do |config|
   config.mailer_sender = 'do-not-reply@example.com'
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = 'Devise::Mailer'
+  config.mailer = 'Devise::Mailer'
 
   # Configure the parent class responsible to send e-mails.
   # config.parent_mailer = 'ActionMailer::Base'
@@ -129,7 +127,7 @@ Devise.setup do |config|
   # able to access the website for two days without confirming their account,
   # access will be blocked just in the third day. Default is 0.days, meaning
   # the user cannot access the website without confirming their account.
-  # config.allow_unconfirmed_access_for = 2.days
+  config.allow_unconfirmed_access_for = 0.days
 
   # A period that the user is allowed to confirm their account before their
   # token becomes invalid. For example, if set to 3.days, the user can confirm
@@ -137,7 +135,7 @@ Devise.setup do |config|
   # their account can't be confirmed with the token any more.
   # Default is nil, meaning there is no restriction on how long a user can take
   # before confirming their account.
-  # config.confirm_within = 3.days
+  config.confirm_within = 3.days
 
   # If true, requires any email changes to be confirmed (exactly the same way as
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
@@ -146,7 +144,7 @@ Devise.setup do |config|
   config.reconfirmable = true
 
   # Defines which key will be used when confirming an account
-  # config.confirmation_keys = [:email]
+  config.confirmation_keys = [:email]
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
