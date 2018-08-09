@@ -1,5 +1,5 @@
-class Artefact < ApplicationRecord
-
+class Artefact < ActiveRecord::Base
+  
   before_save :upload_to_s3
   attr_accessor :upload
   belongs_to :project
@@ -8,7 +8,7 @@ class Artefact < ApplicationRecord
   validates_presence_of :name, :upload
   validates_uniqueness_of :name
   
-  validate :uploaded_file_size
+  validate :uploaded_fize_size
   
   private
   
@@ -20,10 +20,9 @@ class Artefact < ApplicationRecord
     self.key = obj.public_url
   end
   
-  def uploaded_file_size
-      if upload
-          errors.add(:upload, "File size must be less than #{self.class::MAX_FILESIZE}") unless upload.size <=
-          self.class::MAX_FILESIZE
-      end
+  def uploaded_fize_size
+    if upload 
+      errors.add(:upload, "File size must be less than #{self.class::MAX_FILESIZE}") unless upload.size <= self.class::MAX_FILESIZE
+    end
   end
 end

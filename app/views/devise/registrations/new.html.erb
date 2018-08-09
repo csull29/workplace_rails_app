@@ -23,8 +23,8 @@
       </div>
       <%= fields_for( :tenant ) do |w| %>
         <div class="form-group col-md-6 no-left-padding">
-          <%= w.label :name, 'Company/Organization' %>
-          <span class='description'>(Name of your company/organization for the new account)</span>
+          <%= w.label :name, 'Organization/Company' %>
+          <span class='description'>(Name of company/organization for the new account)</span>
           <%= w.text_field :name, required: true, class: "form-control" %>
         </div>
         <div class="form-group col-md-6 no-right-padding">

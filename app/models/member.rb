@@ -5,11 +5,13 @@ class Member < ApplicationRecord
 
   DEFAULT_ADMIN = {
     first_name: "Admin",
-    last_name:  "Please edit me"
+    last_name:  "Edit me"
   }
 
   def self.create_new_member(user, params)
+    
     # add any other initialization for a new member
+    
     return user.create_member( params )
   end
 

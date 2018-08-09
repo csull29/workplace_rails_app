@@ -2,10 +2,12 @@ class RegistrationsController < Milia::RegistrationsController
 
   skip_before_action :authenticate_tenant!, :only => [:new, :create, :cancel]
 
-  #1 create -- intercept the POST create action upon new sign-up
-  #2 new tenant account is vetted, then created, then proceed with devise create user
-  #3 CALLBACK: Tenant.create_new_tenant  -- prior to completing user account
-  #4 CALLBACK: Tenant.tenant_signup      -- after completing user account
+
+  # create -- intercept the POST create action upon new sign-up
+  # new tenant account is vetted, then created, then proceed with devise create user
+  # Tenant.create_new_tenant  -- prior to completing user account
+  # Tenant.tenant_signup      -- after completing user account
+  # ------------------------------------------------------------------------------
   
   def create
       # have a working copy of the params in case Tenant callbacks
@@ -24,7 +26,7 @@ class RegistrationsController < Milia::RegistrationsController
       Tenant.transaction  do 
         @tenant = Tenant.create_new_tenant( tenant_params, user_params, coupon_params)
         if @tenant.errors.empty?   # tenant created
-          if @tenant.plan == 'premium' || 'limited'
+          if @tenant.plan == 'premium'
             @payment = Payment.new({ email: user_params["email"],
               token: params[:payment]["token"],
               tenant: @tenant })
@@ -51,7 +53,7 @@ class RegistrationsController < Milia::RegistrationsController
 
           devise_create( user_params )   # devise resource(user) creation; sets resource
 
-          if resource.errors.empty?  
+          if resource.errors.empty?   
 
             log_action( "signup user/tenant success", resource )
               # do any needed tenant initial setup
@@ -86,24 +88,27 @@ class RegistrationsController < Milia::RegistrationsController
   # ------------------------------------------------------------------------------
   # ------------------------------------------------------------------------------
     def configure_permitted_parameters
-      devise_parameter_sanitizer.for(:sign_up) + ::Milia.whitelist_user_params
+      devise_parameter_sanitizer.permit(:sign_up) ::Milia.whitelist_tenant_params
     end
 
   # ------------------------------------------------------------------------------
-  # ------------------------------------------------------------------------------
+  # ------------------------------------------------------------------------
+  
     def sign_up_params_tenant()
       params.require(:tenant).permit( ::Milia.whitelist_tenant_params )
     end
 
+  # ------------------------------------------------------------------------
   # ------------------------------------------------------------------------------
-  # ------------------------------------------------------------------------------
+  
     def sign_up_params_user()
-      params.require(:user).permit( ::Milia.whitelist_user_params )
+      params.require(:user).permit( ::Milia.whitelist_tenant_params )
     end
 
   # ------------------------------------------------------------------------------
   # sign_up_params_coupon -- permit coupon parameter if used; else params
-  # ---------------------------------------------------------------------------
+  # ------------------------------------------------------------------------
+  
     def sign_up_params_coupon()
       ( ::Milia.use_coupon ? 
         params.require(:coupon).permit( ::Milia.whitelist_coupon_params )  :
@@ -111,14 +116,15 @@ class RegistrationsController < Milia::RegistrationsController
       )
     end
 
-  # ------------------------------------------------------------------------------
-  # sign_out_session! -- force the devise session signout
   # -----------------------------------------------------------------------
+  # sign_out_session! -- force the devise session signout
+  # ---------------------------------------------------------------------------
+  
     def sign_out_session!()
       Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name) if user_signed_in?
     end
 
-  # ---------------------------------------------------------------------------
+  # -----------------------------------------------------------------------
   # devise_create -- duplicate of Devise::RegistrationsController
       # same as in devise gem EXCEPT need to prep signup form variables
   # ------------------------------------------------------------------------------
@@ -152,21 +158,19 @@ class RegistrationsController < Milia::RegistrationsController
       end
     end
 
-  # ---------------------------------------------------------------------------
-  # ------------------------------------------------------------------------------
+
+  
     def after_sign_up_path_for(resource)
       headers['refresh'] = "0;url=#{root_path}"
       root_path
     end
 
-  # ------------------------------------------------------------------------------
-  # ------------------------------------------------------------------------------
+
     def after_inactive_sign_up_path_for(resource)
       headers['refresh'] = "0;url=#{root_path}"
       root_path
     end
-  # ------------------------------------------------------------------------------
-  # ------------------------------------------------------------------------------
+
 
     def log_action( action, resource=nil )
       err_msg = ( resource.nil? ? '' : resource.errors.full_messages.uniq.join(", ") )
@@ -175,10 +179,5 @@ class RegistrationsController < Milia::RegistrationsController
       ) unless logger.nil?
     end
 
-  # ----------------------------------------------------------------------------
-  # ------------------------------------------------------------------------------
 
-  # ------------------------------------------------------------------------------
-  # ----------------------------------------------------------------------------
-
-end   # class Registrations
+end 

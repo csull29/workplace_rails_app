@@ -26,25 +26,23 @@ class Tenant < ActiveRecord::Base
       return tenant
     end
 
-  # ------------------------------------------------------------------------
+
   # new_signups_not_permitted? -- returns true if no further signups allowed
   # args: params from user input; might contain a special 'coupon' code
   #       used to determine whether or not to allow another signup
-  # ------------------------------------------------------------------------
+  # -----------------------------------------------------------
+  
   def self.new_signups_not_permitted?(params)
     return false
   end
 
-  # ------------------------------------------------------------------------
   # tenant_signup -- setup a new tenant in the system
-  # CALLBACK from devise RegistrationsController (milia override)
+  # Called back from devise RegistrationsController (milia override)
   # AFTER user creation and current_tenant established
-  # args:
-  #   user  -- new user  obj
-  #   tenant -- new tenant obj
-  #   other  -- any other parameter string from initial request
-  # ------------------------------------------------------------------------
+  # -----------------------------------------------------------------
+  
     def self.tenant_signup(user, tenant, other = nil)
+      
       #  StartupJob.queue_startup( tenant, user, other )
       # any special seeding required for a new organizational tenant
       #
