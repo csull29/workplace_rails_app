@@ -13,7 +13,7 @@ gem 'puma', '~> 3.11'
 gem 'devise'
 #gem 'devise-i18n'
 gem 'milia', github: 'jekuno/milia', branch: 'issue#76'
-gem 'aws-sdk'
+gem 'aws-sdk-s3', require: false
 gem 'stripe'
 
 # Use SCSS for stylesheets
