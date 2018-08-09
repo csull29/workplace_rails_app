@@ -14,6 +14,7 @@ gem 'devise'
 #gem 'devise-i18n'
 gem 'milia', github: 'jekuno/milia', branch: 'issue#76'
 gem 'aws-sdk-s3', require: false
+gem 'aws-sdk'
 gem 'stripe'
 
 # Use SCSS for stylesheets
