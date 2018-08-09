@@ -16,6 +16,8 @@ gem 'milia', github: 'jekuno/milia', branch: 'issue#76'
 gem 'aws-sdk-s3', require: false
 gem 'aws-sdk'
 gem 'stripe'
+gem 'thin'
+gem 'faye-websocket'
 
 # Use SCSS for stylesheets
 gem 'bootstrap-sass', '~> 3.3.7'
